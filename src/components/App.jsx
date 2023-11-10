@@ -1,25 +1,72 @@
 import { Component } from 'react';
-import SearchBar from './SearchBar/SearchBar';
-import ImageGallery from './ImageGallery/ImageGallery';
+import { SearchBar } from './SearchBar/SearchBar';
+import { imagesApi } from 'services/pixabay-api';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
-    searchImage: '',
+    images: [],
+    page: 1,
+    q: '',
+    loading: false,
+    modalOpen: false,
+    showBtn: false,
+  };
+  fetchData = async () => {
+    const { page, q } = this.state;
+  
+    try {
+      this.setState({ loading: true });
+      const data = await imagesApi({
+        q,
+        page,
+      });
+
+      this.setState(prev => ({
+        images: [...prev.images, ...data.data.hits],
+        showBtn: page < Math.ceil(data.data.totalHits / 12),
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.setState({
+        loading: false,
+      });
+    }
   };
 
-  handleFormSubmit = searchImage => {
-    this.setState({ searchImage });
+  handleChangeQuery = q => {
+    this.setState({ q, images: [], page: 1, loading: false, modalOpen: false });
   };
 
+  componentDidUpdate = (_, prevState) => {
+    const { q, page } = this.state;
+    if (q !== prevState.q || page !== prevState.page) {
+      this.fetchData();
+    }
+  };
+  handleBtnClick = () => {
+    this.setState(prewState => ({
+      page: prewState.page + 1,
+    }));
+
+  };
+  
   render() {
-    const { searchImage } = this.state;
     return (
-      <div className="App">
-        <SearchBar onSubmit={this.handleFormSubmit} />
-        <ImageGallery searchImage={searchImage} />
-      </div>
+      <>
+        <SearchBar onSubmit={this.handleChangeQuery} />
+
+        <>
+          {this.state.loading && <Loader />}
+
+          <ImageGallery arr={this.state.images} />
+
+          {this.state.showBtn && <Button cb={this.handleBtnClick} />}
+        </>
+      </>
     );
   }
 }
-
-export default App;
