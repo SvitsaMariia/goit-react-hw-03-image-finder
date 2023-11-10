@@ -1,7 +1,7 @@
-import Button from 'components/Button/Button';
-import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
-import { Loader } from 'components/Loader/Loader';
-import { Modal } from 'components/Modal/Modal';
+import Button from '../Button/Button';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import { Loader } from '../Loader/Loader';
+import { Modal } from '../Modal/Modal';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
