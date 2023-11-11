@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { imagesApi } from 'services/pixabay-api';
-import SearchBar from './SearchBar/SearchBar';
+import { SearchBar } from './SearchBar/SearchBar';
 import { ImageGallery }  from './ImageGallery/ImageGallery';
 import  { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
