@@ -1,9 +1,10 @@
 import { Component } from 'react';
-import SearchBar from './SearchBar/SearchBar';
 import { imagesApi } from 'services/pixabay-api';
-import { ImageGallery } from './ImageGallery/ImageGallery';
-import { Button } from './Button/Button';
+import SearchBar from './SearchBar/SearchBar';
+import { ImageGallery }  from './ImageGallery/ImageGallery';
+import  { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
+
 
 
 export class App extends Component {
