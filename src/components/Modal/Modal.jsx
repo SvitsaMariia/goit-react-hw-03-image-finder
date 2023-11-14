@@ -4,7 +4,6 @@ import css from './Modal.module.css';
 
 export class Modal extends Component {
   closeOnEsc = e => {
-    console.log(e.target);
     if (e.key === 'Escape') {
       this.props.onClose();
     }
@@ -14,7 +13,7 @@ export class Modal extends Component {
       this.props.onClose();
     }
   };
-
+  
   componentDidMount() {
 
     document.addEventListener('keydown', this.closeOnEsc);
